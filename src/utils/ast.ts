@@ -153,3 +153,11 @@ export function isPageMethod(node: ESTree.CallExpression, name: string) {
     isPropertyAccessor(node.callee, name)
   );
 }
+
+export function isLocatorMethod(node: ESTree.CallExpression, name: string) {
+  return (
+    node.callee.type === 'MemberExpression' &&
+    isPropertyAccessor(node.callee, 'locator') &&
+    isPropertyAccessor(findParent(node, 'MemberExpression'), name)
+  );
+}
